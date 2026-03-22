@@ -34,3 +34,4 @@ C:\DBMWEB\MyProject\bin\Debug\net10.0\runtimes\win\lib\net8.0\System.Diagnostics
 C:\DBMWEB\MyProject\bin\Debug\net10.0\runtimes\win\lib\net8.0\System.Diagnostics.EventLog.dll
 C:\DBMWEB\MyProject\bin\Debug\net10.0\runtimes\win\lib\net8.0\System.Windows.Extensions.dll
 C:\DBMWEB\MyProject\obj\Debug\net10.0\MyProject.csproj.Up2Date
+C:\DBMWEB\MyProject\obj\Debug\net10.0\MyProject.sourcelink.json

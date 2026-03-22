@@ -58,7 +58,6 @@ namespace DBMWEB
         {
             Console.WriteLine("\n--- Testing Connections ---");
             TestConnection(clinicConnectionString, "ClinicDB");
-            TestConnection(studentConnectionString, "StudentDB");
         }
 
         static void TestConnection(string connStr, string dbName)

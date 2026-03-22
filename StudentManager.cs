@@ -5,6 +5,7 @@ namespace DBMWEB
 {
     public static class StudentManager
     {
+        //ready-to-use task that takes some text to work with na hindi na kailangan may ibabalik pa
         public static void Run(string connectionString)
         {
             bool running = true;
@@ -17,8 +18,9 @@ namespace DBMWEB
                 Console.WriteLine("[3] Display Students");
                 Console.WriteLine("[4] Back to Main");
                 Console.Write("Enter option: ");
+                  //pauses and hihintayin nya yong user input 
                 string option = Console.ReadLine();
-
+                //option selection
                 switch (option)
                 {
                     case "1":
@@ -40,8 +42,11 @@ namespace DBMWEB
             }
         }
 
+            //ag alala ti info idjay database at nagchecheck kung connected
         static void TestConnection(string connectionString)
         {
+            //This line opens a connection to a MySQL database using the info in connectionString. 
+            // coon ti nagan ti connection, ag close no nalpas tayo idjay output or yaz
             using var conn = new MySqlConnection(connectionString);
             try
             {
@@ -53,12 +58,16 @@ namespace DBMWEB
                 Console.WriteLine("[ERROR] " + ex.Message);
             }
         }
-
+          //ag alala ti info idjay database at nagchecheck kung connected
         static void InsertStudent(string connectionString)
         {
+            //This line opens a connection to a MySQL database using the info in connectionString. 
+            // coon ti nagan ti connection, ag close no nalpas tayo idjay output or yaz
             using var conn = new MySqlConnection(connectionString);
             try
             {
+                //input
+                // conn.open() ti agstastart ti conversation
                 conn.Open();
                 Console.Write("First Name: ");
                 string firstName = Console.ReadLine();
@@ -83,8 +92,7 @@ namespace DBMWEB
                 Console.WriteLine("[ERROR] " + ex.Message);
             }
         }
-
-        static void DisplayStudents(string connectionString)
+               static void DisplayStudents(string connectionString) //ag alala ti info idjay database at nagchecheck kung connected
         {
             using var conn = new MySqlConnection(connectionString);
             string query = "SELECT * FROM Student";
