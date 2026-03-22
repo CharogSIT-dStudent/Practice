@@ -7,6 +7,7 @@ namespace DBMWEB
     {
         public static void Run(string connectionString)
         {
+            // Keeps the clinic menu showing and working until user picks exit
             bool running = true;
             while (running)
             {
@@ -20,18 +21,23 @@ namespace DBMWEB
                 Console.Write("Enter option: ");
                 string option = Console.ReadLine();
 
+                // Looks at user's choice and runs the matching action
                 switch (option)
                 {
                     case "1":
+                        // Adds new doctor or medicine to the database
                         InsertData(connectionString);
                         break;
                     case "2":
+                        // Creates a new prescription record
                         CreatePrescription(connectionString);
                         break;
                     case "3":
+                        // Shows all prescriptions linking patients, doctors, and medicines
                         ViewPrescriptions(connectionString);
                         break;
                     case "4":
+                        // Shows all rows from the chosen table
                         ViewTables(connectionString);
                         break;
                     case "5":
@@ -58,6 +64,7 @@ namespace DBMWEB
 
                 if (choice == "1")
                 {
+                // Gets doctor's details from user input
                     Console.Write("First Name: ");
                     string first = Console.ReadLine();
                     Console.Write("Last Name: ");
@@ -65,6 +72,7 @@ namespace DBMWEB
                     Console.Write("Specialty: ");
                     string spec = Console.ReadLine();
 
+                    // Adds the doctor to the database using safe placeholders
                     string query = "INSERT INTO Doctor (FirstName, LastName, Specialty) VALUES (@f, @l, @s)";
                     using var cmd = new MySqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@f", first);
@@ -75,6 +83,7 @@ namespace DBMWEB
                 }
                 else if (choice == "2")
                 {
+                    // Gets medicine details from user input
                     Console.Write("Medicine Name: ");
                     string name = Console.ReadLine();
                     Console.Write("Dosage: ");
@@ -82,6 +91,7 @@ namespace DBMWEB
                     Console.Write("Price: ");
                     decimal price = decimal.Parse(Console.ReadLine());
 
+                    // Adds the medicine to the database using safe placeholders
                     string query = "INSERT INTO Medicine (MedicineName, Dosage, Price) VALUES (@n, @d, @p)";
                     using var cmd = new MySqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@n", name);
@@ -103,6 +113,7 @@ namespace DBMWEB
             try
             {
                 conn.Open();
+                // Gets IDs and patient name for the prescription
                 Console.Write("Doctor ID: ");
                 string doctor = Console.ReadLine();
                 Console.Write("Medicine ID: ");
@@ -110,6 +121,7 @@ namespace DBMWEB
                 Console.Write("Patient Name: ");
                 string patient = Console.ReadLine();
 
+                // Adds prescription with current date/time automatically
                 string query = "INSERT INTO Prescription (DoctorID, MedicineID, PatientName, PrescriptionDate) VALUES (@d, @m, @p, NOW())";
                 using var cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@d", doctor);
@@ -127,6 +139,7 @@ namespace DBMWEB
         static void ViewPrescriptions(string connectionString)
         {
             using var conn = new MySqlConnection(connectionString);
+            // Special query that combines prescription info with doctor and medicine details (JOIN)
             string query = @"SELECT p.PrescriptionID, p.PatientName, d.LastName, d.Specialty, m.MedicineName 
                              FROM Prescription p 
                              JOIN Doctor d ON p.DoctorID = d.DoctorID 

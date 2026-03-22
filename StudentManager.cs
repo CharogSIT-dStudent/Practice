@@ -5,7 +5,7 @@ namespace DBMWEB
 {
     public static class StudentManager
     {
-        //ready-to-use task that takes some text to work with na hindi na kailangan may ibabalik pa
+        // Starts the student menu system
         public static void Run(string connectionString)
         {
             bool running = true;
@@ -18,9 +18,9 @@ namespace DBMWEB
                 Console.WriteLine("[3] Display Students");
                 Console.WriteLine("[4] Back to Main");
                 Console.Write("Enter option: ");
-                  //pauses and hihintayin nya yong user input 
+                 // Urayun na djay user and input
                 string option = Console.ReadLine();
-                //option selection
+                // Checks user choice and runs matching action
                 switch (option)
                 {
                     case "1":
@@ -42,11 +42,9 @@ namespace DBMWEB
             }
         }
 
-            //ag alala ti info idjay database at nagchecheck kung connected
         static void TestConnection(string connectionString)
         {
-            //This line opens a connection to a MySQL database using the info in connectionString. 
-            // coon ti nagan ti connection, ag close no nalpas tayo idjay output or yaz
+            // Opens connection to database safely (closes automatically when done)
             using var conn = new MySqlConnection(connectionString);
             try
             {
@@ -58,16 +56,14 @@ namespace DBMWEB
                 Console.WriteLine("[ERROR] " + ex.Message);
             }
         }
-          //ag alala ti info idjay database at nagchecheck kung connected
+
         static void InsertStudent(string connectionString)
         {
-            //This line opens a connection to a MySQL database using the info in connectionString. 
-            // coon ti nagan ti connection, ag close no nalpas tayo idjay output or yaz
+            // Opens connection to database safely (closes automatically when done)
             using var conn = new MySqlConnection(connectionString);
             try
             {
-                //input
-                // conn.open() ti agstastart ti conversation
+                // Starts database work and gets student info from user
                 conn.Open();
                 Console.Write("First Name: ");
                 string firstName = Console.ReadLine();
@@ -78,6 +74,7 @@ namespace DBMWEB
                 Console.Write("Year Level: ");
                 int yearLevel = int.Parse(Console.ReadLine());
 
+                // Adds student to database using safe placeholders
                 string query = "INSERT INTO Student (FIRSTNAME, LASTNAME, COURSE, YEARLEVEL) VALUES (@fn, @ln, @c, @yl)";
                 using var cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@fn", firstName);
@@ -92,9 +89,11 @@ namespace DBMWEB
                 Console.WriteLine("[ERROR] " + ex.Message);
             }
         }
-               static void DisplayStudents(string connectionString) //ag alala ti info idjay database at nagchecheck kung connected
+
+        static void DisplayStudents(string connectionString)
         {
             using var conn = new MySqlConnection(connectionString);
+            // Gets all students from database
             string query = "SELECT * FROM Student";
             try
             {
