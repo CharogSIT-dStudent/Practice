@@ -104,7 +104,7 @@ namespace DBMWEB
                 Console.WriteLine("\n--- Student List ---");
                 while (reader.Read())
                 {
-                    Console.WriteLine($"ID: {reader["STUDENT_ID"]}, FirstName: {reader["FIRSTNAME"]}, LastName: {reader["LASTNAME"]}, Course: {reader["COURSE"]}, Year Level: {reader["YEARLEVEL"]}");
+                    Console.WriteLine($"ID: {reader["STUDENTID"]}, FirstName: {reader["FIRSTNAME"]}, LastName: {reader["LASTNAME"]}, Course: {reader["COURSE"]}, Year Level: {reader["YEARLEVEL"]}");
                 }
             }
             catch (Exception ex)

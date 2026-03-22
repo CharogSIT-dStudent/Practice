@@ -5,8 +5,8 @@ namespace DBMWEB
 {
     class Program
     {
-        static string clinicConnectionString = "Server=localhost; Database=SystemDB; Uid=root; port=1108;";
-        static string studentConnectionString = "server=127.0.0.1;database=SystemDB;Uid=root;port=1108;";
+        static string systemConnectionString = "Server=localhost; Database=SystemDB; Uid=root; port=1108;";
+ 
 
         static void Main(string[] args)
         {
@@ -31,10 +31,10 @@ namespace DBMWEB
                 switch (option)
                 {
                     case "1":
-                        ClinicManager.Run(clinicConnectionString);
+                        ClinicManager.Run(systemConnectionString);
                         break;
                     case "2":
-                        StudentManager.Run(studentConnectionString);
+                        StudentManager.Run(systemConnectionString);
                         break;
                     case "3":
                         TrackerManager.Run();
@@ -57,7 +57,7 @@ namespace DBMWEB
         static void TestConnections()
         {
             Console.WriteLine("\n--- Testing Connections ---");
-            TestConnection(clinicConnectionString, "ClinicDB");
+            TestConnection(systemConnectionString, "SystemDB");
         }
 
         static void TestConnection(string connStr, string dbName)
